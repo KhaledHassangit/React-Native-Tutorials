@@ -6,6 +6,7 @@ export interface NewsItem {
   image: any;
 }
 export interface Article {
+  id: string;
   title: string;
   description: string;
   urlToImage: string;
