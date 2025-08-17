@@ -1,43 +1,47 @@
-import React from 'react';
-import { View, Text, ImageBackground, FlatList, ListRenderItem } from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useState, useEffect } from 'react';
+import { View, Text, ImageBackground, FlatList, ListRenderItem, Button } from 'react-native';
 import { styles } from './styles';
-
-interface NewsItem {
-  id: string;
-  title: string;
-  publishedAt: string;
-  image: any; 
-}
+import { getTopHeadlines } from '../../../api/baseURL';
+import { Article, NewsItem } from '../../../types/types';
 
 const MainNews = () => {
-  const dummyNews: NewsItem[] = [
-    {
-      id: '1',
-      title: 'Breaking News: React Native 0.72 Released',
-      publishedAt: '2023-03-15',
-      image: require('../../../assets/images/bg.webp'),
-    },
-    {
-      id: '2',
-      title: 'Tech Giants Invest in AI',
-      publishedAt: '2023-03-16',
-      image: require('../../../assets/images/bg.webp'),
-    },
-    {
-      id: '3',
-      title: 'Mobile Development Trends for 2025',
-      publishedAt: '2023-03-17',
-      image: require('../../../assets/images/bg.webp'),
-    },
-  ];
+  const [news, setNews] = useState<NewsItem[]>([]);
 
+  // Fetch news from API
+  const getNews = async () => {
+    try {
+      const data = await getTopHeadlines();
+      const articles = data?.articles?.map((article: Article, index: number) => ({
+        id: index.toString(),
+        title: article.title || "No title",
+        publishedAt: article.publishedAt?.split("T")[0] || "Unknown date",
+        image: { uri: article.urlToImage || "https://via.placeholder.com/300" }
+      }));
+      setNews(articles);
+    } catch (error) {
+      console.error("Error loading news:", error);
+    }
+  };
+
+  // Add dummy news manually
+  const addNews = () => {
+    const newArticle: NewsItem = {
+      id: (news.length + 1).toString(),
+      title: 'New Article: Added Dynamically',
+      publishedAt: new Date().toISOString().split('T')[0],
+      image: require('../../../assets/images/bg.webp'),
+    };
+    setNews((prevNews) => [...prevNews, newArticle]);
+  };
+
+  // Render single news item
   const renderNews: ListRenderItem<NewsItem> = ({ item }) => {
     return (
       <ImageBackground
-        resizeMode="center"
+        resizeMode="cover"
         source={item.image}
-        style={styles.container}
-      >
+        style={styles.container}>
         <View style={styles.whiteDev}>
           <View style={styles.RedDev}>
             <Text style={styles.deadlineText}>{item.title}</Text>
@@ -48,16 +52,24 @@ const MainNews = () => {
     );
   };
 
+  useEffect(() => {
+    getNews();
+  }, []);
+
   return (
-    <FlatList
-      data={dummyNews}
-      renderItem={renderNews}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      pagingEnabled
-      keyExtractor={(item) => item.id}
-      contentContainerStyle={styles.listContainer}
-    />
+    <View style={{ flex: 1 }}>
+      <Button title="Add News" onPress={addNews} />
+
+      <FlatList
+        data={news}
+        renderItem={renderNews}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.listContainer}
+      />
+    </View>
   );
 };
 
