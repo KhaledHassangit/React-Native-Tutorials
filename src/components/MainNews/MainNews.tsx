@@ -1,10 +1,25 @@
 import React from "react";
-import { View, Text, ImageBackground, FlatList, Button } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  FlatList,
+  Button,
+  Pressable,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+
 import { styles } from "./styles";
 import { useNews } from "../../hooks/useNews";
-import { NewsItem } from "../../types/types";
+import { NewsItem, RootStackParamList } from "../../constants/types";
+import { ROUTES } from "../../constants/enmus";
+
+type NavProp = StackNavigationProp<RootStackParamList, "Home">;
 
 const MainNews = () => {
+  const navigation = useNavigation<NavProp>();
+
   const { articles, loading, refetch } = useNews();
 
   const news: NewsItem[] = articles.map((a) => ({
@@ -13,7 +28,6 @@ const MainNews = () => {
     publishedAt: a.publishedAt,
     image: { uri: a.urlToImage },
   }));
-
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -24,17 +38,25 @@ const MainNews = () => {
       <FlatList
         data={news}
         renderItem={({ item }) => (
-          <ImageBackground
-            resizeMode="cover"
-            source={item.image}
-            style={styles.container}>
-            <View style={styles.whiteDev}>
-              <View style={styles.RedDev}>
-                <Text style={styles.deadlineText}>{item.title}</Text>
+          <Pressable
+            onPress={() =>
+              navigation.navigate(ROUTES.ARTICLE_DETAILS, { article: item })
+            }>
+            <ImageBackground
+              resizeMode="cover"
+              source={item.image}
+              style={styles.container}
+            >
+              <View style={styles.whiteDev}>
+                <View style={styles.RedDev}>
+                  <Text style={styles.deadlineText}>{item.title}</Text>
+                </View>
+                <Text style={styles.name}>
+                  Published at: {item.publishedAt}
+                </Text>
               </View>
-              <Text style={styles.name}>Published at: {item.publishedAt}</Text>
-            </View>
-          </ImageBackground>
+            </ImageBackground>
+          </Pressable>
         )}
         horizontal
         showsHorizontalScrollIndicator={false}

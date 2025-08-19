@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Cairo-Black.ttf",
+      "sha1": "0b577354b1dc4121d5a7cf1e2aa180bbc762e8ff"
+    },
+    {
+      "path": "src/assets/fonts/Cairo-Bold.ttf",
+      "sha1": "3859f939445eb6a652881148fe2471bf9ebb1373"
+    },
+    {
+      "path": "src/assets/fonts/Cairo-ExtraBold.ttf",
+      "sha1": "3ad13ba53b98e8491edf1bcfc1bd0c991a82267a"
+    },
+    {
+      "path": "src/assets/fonts/Cairo-ExtraLight.ttf",
+      "sha1": "660bf601648c21d7cbfb29438f650be9ce67f039"
+    },
+    {
+      "path": "src/assets/fonts/Cairo-Light.ttf",
+      "sha1": "6c1a4a91abde85f09bc5d0d800c1bb8f320b16e0"
+    },
+    {
+      "path": "src/assets/fonts/Cairo-Medium.ttf",
+      "sha1": "e06b9a9cd13816c01c0e179702c60ae936a1d5cc"
+    },
+    {
+      "path": "src/assets/fonts/Cairo-Regular.ttf",
+      "sha1": "b89dbb66d7f4150f6dd909afb41f6643bdb12a85"
+    },
+    {
+      "path": "src/assets/fonts/Cairo-SemiBold.ttf",
+      "sha1": "119c7991902cec9c65904fdc27bc2f6e8368075b"
+    }
+  ]
+}

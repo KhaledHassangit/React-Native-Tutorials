@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTopHeadlines } from "../api/baseURL";
-import { Article } from "../types/types";
+import { Article } from "../constants/types";
 
 export const useNews = () => {
   const [articles, setArticles] = useState<Article[]>([]);
