@@ -1,3 +1,4 @@
+import { StackNames } from './enmus';
 export interface NewsItem {
   id: string;
   title: string;
@@ -18,6 +19,8 @@ export interface Article {
 }
 
 export type RootStackParamList = {
-  Home: undefined;
-  ArticleDetails: { article: NewsItem }; 
+  [StackNames.HOME_STACK]: undefined;
+  [StackNames.AUTH_STACK]: undefined;
+  [StackNames.MAIN_TABS]: undefined;
+  [StackNames.ARTICLE_STACK]: { article: NewsItem };
 };
