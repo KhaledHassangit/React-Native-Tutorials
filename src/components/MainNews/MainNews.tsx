@@ -13,9 +13,9 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { styles } from "./styles";
 import { useNews } from "../../hooks/useNews";
 import { NewsItem, RootStackParamList } from "../../constants/types";
-import { ROUTES } from "../../constants/enmus";
+import { ROUTES, StackNames } from "../../constants/enmus";
 
-type NavProp = StackNavigationProp<RootStackParamList, "Home">;
+type NavProp = StackNavigationProp<RootStackParamList, StackNames.HOME_STACK>;
 
 const MainNews = () => {
   const navigation = useNavigation<NavProp>();
@@ -40,8 +40,10 @@ const MainNews = () => {
         renderItem={({ item }) => (
           <Pressable
             onPress={() =>
-              navigation.navigate(ROUTES.ARTICLE_DETAILS, { article: item })
-            }>
+              navigation.navigate(StackNames.SHARED_STACK, {
+                screen: ROUTES.ARTICLE_DETAILS,
+                params: { article: item },
+              })}>
             <ImageBackground
               resizeMode="cover"
               source={item.image}
