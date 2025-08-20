@@ -25,6 +25,7 @@ export type RootStackParamList = {
   [StackNames.MAIN_TABS]: undefined;
   [StackNames.SHARED_STACK]: NavigatorScreenParams<SharedStackParamList>;
   [StackNames.ARTICLE_STACK]: { article: NewsItem };
+  [StackNames.SETTINGS_STACK]: undefined;
 };
  
 export type SharedStackParamList = {

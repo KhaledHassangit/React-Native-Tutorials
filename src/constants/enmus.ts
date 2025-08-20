@@ -12,4 +12,5 @@ export enum StackNames {
   ARTICLE_STACK = "ArticleStack",
   SHARED_STACK = "SharedStack",
   MAIN_TABS = "MainTabs",
+  SETTINGS_STACK = "SettingsStack"
 }
